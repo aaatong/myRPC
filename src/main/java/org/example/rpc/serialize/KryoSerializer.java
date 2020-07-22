@@ -6,8 +6,10 @@ import com.esotericsoftware.kryo.io.Output;
 import org.example.rpc.protocol.RPCRequest;
 import org.example.rpc.protocol.RPCResponse;
 
-public class KryoSerializer implements Seriallizer {
-    private static KryoSerializer instance;
+import java.io.ByteArrayOutputStream;
+
+public class KryoSerializer implements Serializer {
+    private static KryoSerializer instance = new KryoSerializer();
 
     private static ThreadLocal<Kryo> threadKryo = new ThreadLocal<Kryo>() {
         @Override
@@ -28,9 +30,9 @@ public class KryoSerializer implements Seriallizer {
     @Override
     public byte[] serialize(Object object) {
         Kryo kryo = threadKryo.get();
-        Output output = new Output();
+        Output output = new Output(64);
         kryo.writeObject(output, object);
-        return output.getBuffer();
+        return output.toBytes();
     }
 
     @Override

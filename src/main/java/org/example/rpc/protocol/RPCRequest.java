@@ -1,6 +1,9 @@
 package org.example.rpc.protocol;
 
+import java.util.UUID;
+
 public class RPCRequest {
+    private String roundID;
     private String interfaceName;
     private String methodName;
     private Object[] args;
@@ -27,5 +30,13 @@ public class RPCRequest {
 
     public void setArgs(Object[] args) {
         this.args = args;
+    }
+
+    public String getRoundID() {
+        return roundID;
+    }
+
+    public void setRoundID(String roundID) {
+        this.roundID = roundID;
     }
 }

@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Hello world!
@@ -23,16 +24,15 @@ public class App {
         kryo.register(Person.class);
 
         Person jack = new Person("Jack", 20);
-        ByteBuf buffer = Unpooled.buffer(1024);
 
-        Output output = new Output(new ByteBufOutputStream(buffer));
+        Output output = new Output(64);
         kryo.writeObject(output, jack);
-        output.close();
+        byte[] jackBytes = output.toBytes();
+        System.out.println(jackBytes.length);
 
-        Input input = new Input(new ByteBufInputStream(buffer));
+        Input input = new Input(jackBytes);
         Person who = kryo.readObject(input, Person.class);
         System.out.println(who);
-        input.close();
     }
 }
 
