@@ -1,6 +1,8 @@
 package org.example.remoting;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -30,7 +32,8 @@ public class TransportServer {
 
     public void start() {
         try {
-            bootstrap.bind(12306).sync();
+            ChannelFuture f = bootstrap.bind(12306).sync();
+            f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

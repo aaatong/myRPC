@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RPCDecoder extends ByteToMessageDecoder {
 
-    private Class<?> targetClass;
+    private final Class<?> targetClass;
 
     public RPCDecoder(Class<?> clazz) {
         this.targetClass = clazz;

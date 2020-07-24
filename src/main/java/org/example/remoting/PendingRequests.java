@@ -16,6 +16,9 @@ public class PendingRequests {
 
     public static void complete(String id, RPCResponse response) {
         CompletableFuture<RPCResponse> responseFuture = pendingRequests.get(id);
+        if (responseFuture == null) {
+            return;
+        }
         responseFuture.complete(response);
     }
 }

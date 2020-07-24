@@ -54,7 +54,7 @@ public class TransportClient {
         Channel targetChannel = channelMap.get(key);
         if (targetChannel == null || !targetChannel.isActive()) {
             targetChannel = doConnect(address);
-            channelMap.put(address.toString(), targetChannel);
+            channelMap.put(key, targetChannel);
         }
         CompletableFuture<RPCResponse> responseFuture = new CompletableFuture<>();
         PendingRequests.put(request.getRoundID(), responseFuture);
@@ -62,7 +62,7 @@ public class TransportClient {
             if (future.isSuccess()) {
                 System.out.println("Client send a message!");
             } else {
-
+                future.cause().printStackTrace();
             }
         });
         return responseFuture;

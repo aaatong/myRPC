@@ -32,10 +32,10 @@ public class RPCConsumerProxy implements InvocationHandler {
         request.setInterfaceName(method.getDeclaringClass().getCanonicalName());
         request.setMethodName(method.getName());
         request.setArgs(args);
+        request.setArgTypes(method.getParameterTypes());
         // todo: get provider address from registry
-        InetSocketAddress address = null;
-        // todo: send this request to remote provider, get response, and return result
+        InetSocketAddress address = new InetSocketAddress("localhost", 12306);
         CompletableFuture<RPCResponse> responseFuture = tranport.sendRequest(request, address);
-        return responseFuture.get();
+        return responseFuture.get().getResult();
     }
 }

@@ -1,18 +1,11 @@
-package org.example;
+package org.example.rpc.serialize;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufInputStream;
-import io.netty.buffer.ByteBufOutputStream;
-import io.netty.buffer.Unpooled;
+import org.example.rpc.protocol.RPCRequest;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Hello world!
@@ -20,18 +13,15 @@ import java.util.UUID;
  */
 public class App {
     public static void main( String[] args ) throws FileNotFoundException {
-        Kryo kryo = new Kryo();
-        kryo.register(Person.class);
+        Serializer serializer = KryoSerializer.getInstance();
 
         Person jack = new Person("Jack", 20);
+        RPCRequest request = new RPCRequest();
 
-        Output output = new Output(64);
-        kryo.writeObject(output, jack);
-        byte[] jackBytes = output.toBytes();
-        System.out.println(jackBytes.length);
+        byte[] jackBytes = serializer.serialize(request);
 
-        Input input = new Input(jackBytes);
-        Person who = kryo.readObject(input, Person.class);
+
+        RPCRequest who = serializer.deSerialize(jackBytes, RPCRequest.class);
         System.out.println(who);
     }
 }

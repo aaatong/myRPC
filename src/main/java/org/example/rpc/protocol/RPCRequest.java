@@ -6,6 +6,7 @@ public class RPCRequest {
     private String roundID;
     private String interfaceName;
     private String methodName;
+    private Class<?>[] argTypes;
     private Object[] args;
 
     public String getInterfaceName() {
@@ -38,5 +39,13 @@ public class RPCRequest {
 
     public void setRoundID(String roundID) {
         this.roundID = roundID;
+    }
+
+    public Class<?>[] getArgTypes() {
+        return argTypes;
+    }
+
+    public void setArgTypes(Class<?>[] argTypes) {
+        this.argTypes = argTypes;
     }
 }

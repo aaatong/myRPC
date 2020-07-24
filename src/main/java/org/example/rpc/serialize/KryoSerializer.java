@@ -17,6 +17,9 @@ public class KryoSerializer implements Serializer {
             Kryo initKryo = new Kryo();
             initKryo.register(RPCRequest.class);
             initKryo.register(RPCResponse.class);
+            initKryo.register(Class.class);
+            initKryo.register(Class[].class);
+            initKryo.register(Object[].class);
             return initKryo;
         }
     };
@@ -30,7 +33,7 @@ public class KryoSerializer implements Serializer {
     @Override
     public byte[] serialize(Object object) {
         Kryo kryo = threadKryo.get();
-        Output output = new Output(64);
+        Output output = new Output(64, 512);
         kryo.writeObject(output, object);
         return output.toBytes();
     }
