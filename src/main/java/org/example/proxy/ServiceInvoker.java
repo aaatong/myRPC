@@ -18,7 +18,7 @@ public class ServiceInvoker {
             public void run() {
                 try {
                     String interfaceName = request.getInterfaceName();
-                    Object service = ServiceProvider.getService(interfaceName);
+                    Object service = ServiceManager.getService(interfaceName);
                     Method method = service.getClass().getMethod(request.getMethodName(), request.getArgTypes());
                     Object result = method.invoke(service, request.getArgs());
                     RPCResponse response = new RPCResponse();
