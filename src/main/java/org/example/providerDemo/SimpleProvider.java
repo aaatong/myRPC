@@ -1,6 +1,6 @@
 package org.example.providerDemo;
 
-import org.example.proxy.ServiceManager;
+import org.example.proxy.provider.ServiceManager;
 import org.example.remoting.TransportServer;
 import org.example.services.Addition;
 

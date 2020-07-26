@@ -2,7 +2,7 @@ package org.example.remoting;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.example.proxy.ServiceInvoker;
+import org.example.proxy.provider.ServiceInvoker;
 import org.example.rpc.protocol.RPCRequest;
 
 public class ServerInboundHandler extends ChannelInboundHandlerAdapter {

@@ -1,4 +1,4 @@
-package org.example.proxy;
+package org.example.proxy.consumer;
 
 import org.example.loadbalance.LoadBalance;
 import org.example.loadbalance.RandomLoadBalance;

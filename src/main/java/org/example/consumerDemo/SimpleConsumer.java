@@ -1,6 +1,6 @@
 package org.example.consumerDemo;
 
-import org.example.proxy.RPCConsumerProxy;
+import org.example.proxy.consumer.RPCConsumerProxy;
 import org.example.services.Addition;
 
 public class SimpleConsumer {

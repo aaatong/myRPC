@@ -17,6 +17,7 @@ public class KryoSerializer implements Serializer {
             Kryo initKryo = new Kryo();
             initKryo.register(RPCRequest.class);
             initKryo.register(RPCResponse.class);
+            initKryo.register(RPCResponse.ResponseCode.class);
             initKryo.register(Class.class);
             initKryo.register(Class[].class);
             initKryo.register(Object[].class);

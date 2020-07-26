@@ -18,8 +18,10 @@ public class RPCEncoder extends MessageToByteEncoder<Object> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
+        System.out.println("lalala");
         byte[] msgBytes = serializer.serialize(msg);
         out.writeInt(msgBytes.length);
         out.writeBytes(msgBytes);
+        System.out.println("Response sent!");
     }
 }

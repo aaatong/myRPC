@@ -1,6 +1,5 @@
-package org.example.proxy;
+package org.example.proxy.consumer;
 
-import io.netty.channel.ChannelPromise;
 import org.example.remoting.TransportClient;
 import org.example.rpc.protocol.RPCRequest;
 import org.example.rpc.protocol.RPCResponse;
@@ -15,6 +14,8 @@ import java.util.concurrent.CompletableFuture;
 public class RPCConsumerProxy implements InvocationHandler {
 
     TransportClient tranport;
+
+    private final ConsumerServiceInvoker serviceInvoker = new CircuitBreakerInovker();
 
     public RPCConsumerProxy() {
         tranport = new TransportClient();
@@ -34,8 +35,10 @@ public class RPCConsumerProxy implements InvocationHandler {
         request.setArgs(args);
         request.setArgTypes(method.getParameterTypes());
 
-        InetSocketAddress providerAddr = ServiceProviderManager.getServiceProvider(request.getInterfaceName());
-        CompletableFuture<RPCResponse> responseFuture = tranport.sendRequest(request, providerAddr);
-        return responseFuture.get().getResult();
+        return serviceInvoker.invoke(request);
+
+        // InetSocketAddress providerAddr = ServiceProviderManager.getServiceProvider(request.getInterfaceName());
+        // CompletableFuture<RPCResponse> responseFuture = tranport.sendRequest(request, providerAddr);
+        // return responseFuture.get().getResult();
     }
 }

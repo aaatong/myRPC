@@ -1,6 +1,9 @@
-package org.example.proxy;
+package org.example.proxy.provider;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.util.concurrent.FutureListener;
 import org.example.rpc.protocol.RPCRequest;
 import org.example.rpc.protocol.RPCResponse;
 
@@ -24,7 +27,11 @@ public class ServiceInvoker {
                     RPCResponse response = new RPCResponse();
                     response.setRoundID(request.getRoundID());
                     response.setResult(result);
-                    channel.writeAndFlush(response);
+                    channel.writeAndFlush(response).addListener((ChannelFutureListener) future -> {
+                        if (!future.isSuccess()) {
+                            future.cause().printStackTrace();
+                        }
+                    });
                 } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
