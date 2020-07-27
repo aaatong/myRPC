@@ -7,6 +7,7 @@ import org.example.rpc.protocol.RPCRequest;
 import org.example.rpc.protocol.RPCResponse;
 
 import java.io.ByteArrayOutputStream;
+import java.util.concurrent.CompletableFuture;
 
 public class KryoSerializer implements Serializer {
     private static KryoSerializer instance = new KryoSerializer();
@@ -18,6 +19,7 @@ public class KryoSerializer implements Serializer {
             initKryo.register(RPCRequest.class);
             initKryo.register(RPCResponse.class);
             initKryo.register(RPCResponse.ResponseCode.class);
+            initKryo.register(CompletableFuture.class);
             initKryo.register(Class.class);
             initKryo.register(Class[].class);
             initKryo.register(Object[].class);

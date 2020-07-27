@@ -15,7 +15,7 @@ public class RPCConsumerProxy implements InvocationHandler {
 
     TransportClient tranport;
 
-    private final ConsumerServiceInvoker serviceInvoker = new CircuitBreakerInovker();
+    private final ConsumerServiceInvoker serviceInvoker = new CircuitBreakerInvoker();
 
     public RPCConsumerProxy() {
         tranport = new TransportClient();
@@ -36,9 +36,5 @@ public class RPCConsumerProxy implements InvocationHandler {
         request.setArgTypes(method.getParameterTypes());
 
         return serviceInvoker.invoke(request);
-
-        // InetSocketAddress providerAddr = ServiceProviderManager.getServiceProvider(request.getInterfaceName());
-        // CompletableFuture<RPCResponse> responseFuture = tranport.sendRequest(request, providerAddr);
-        // return responseFuture.get().getResult();
     }
 }

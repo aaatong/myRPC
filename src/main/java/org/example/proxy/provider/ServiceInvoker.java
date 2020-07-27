@@ -20,6 +20,7 @@ public class ServiceInvoker {
             @Override
             public void run() {
                 try {
+                    // todo: populate response code according to exception types
                     String interfaceName = request.getInterfaceName();
                     Object service = ServiceManager.getService(interfaceName);
                     Method method = service.getClass().getMethod(request.getMethodName(), request.getArgTypes());
@@ -27,6 +28,8 @@ public class ServiceInvoker {
                     RPCResponse response = new RPCResponse();
                     response.setRoundID(request.getRoundID());
                     response.setResult(result);
+                    response.setCode(RPCResponse.ResponseCode.SUCCESS);
+
                     channel.writeAndFlush(response).addListener((ChannelFutureListener) future -> {
                         if (!future.isSuccess()) {
                             future.cause().printStackTrace();

@@ -12,7 +12,6 @@ public class ClientInboundHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         RPCResponse response = (RPCResponse)msg;
         String roundID = response.getRoundID();
-        System.out.println("Response received!");
         PendingRequests.complete(roundID, response);
     }
 }

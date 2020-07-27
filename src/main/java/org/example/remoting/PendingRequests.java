@@ -15,6 +15,7 @@ public class PendingRequests {
     }
 
     public static void complete(String id, RPCResponse response) {
+        // todo: when circuit opens, clear all pending request and futures
         CompletableFuture<RPCResponse> responseFuture = pendingRequests.get(id);
         if (responseFuture == null) {
             return;
